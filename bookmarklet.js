@@ -1,7 +1,6 @@
 javascript:(() => {
     const tiles = document.getElementsByClassName('Tile-module_tile__UWEHN');
 
-    // { letter: number | null }
     const knowledge = {};
 
     for (let i = 0; i < tiles.length; i++) {
@@ -28,7 +27,7 @@ javascript:(() => {
     fetch('https://raw.githubusercontent.com/BinaryBand/wordle-solver/master/words.json')
         .then((response) => response.json())
         .then((words) => {
-            let letters = Object.keys(knowledge);
+            const letters = Object.keys(knowledge);
 
             for (let i = 0; i < letters.length; i++) {
                 const letter = letters[i];
@@ -38,7 +37,7 @@ javascript:(() => {
                         return !word.includes(letter);
                     });
                 }
-                else if (knowledge[letter] < 4) {
+                else if (knowledge[letter] < 5) {
                     words = words.filter((word) => {
                         const index = knowledge[letter];
                         return word[index] !== letter && word.includes(letter);
@@ -52,7 +51,8 @@ javascript:(() => {
                 }
             }
 
-            alert(words[0]);
+            const nextWord = words[Math.floor(Math.random() * words.length)];
+            alert(nextWord);
         })
         .catch(alert);
 })();
